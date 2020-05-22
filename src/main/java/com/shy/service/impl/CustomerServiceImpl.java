@@ -55,4 +55,19 @@ public class CustomerServiceImpl implements CustomerService {
 
         return customPageBean;
     }
+
+    @Override
+    public CstCustomer findCustomerById(Long custId) {
+        return cstCustomerMapper.selectByPrimaryKey(custId);
+    }
+
+    @Override
+    public void updateCustomerById(CstCustomer cstCustomer) {
+        cstCustomerMapper.updateByPrimaryKeySelective(cstCustomer);
+    }
+
+    @Override
+    public void deleteCustomerById(Long custId) {
+        cstCustomerMapper.deleteByPrimaryKey(custId);
+    }
 }

@@ -9,13 +9,44 @@
 <LINK href="${pageContext.request.contextPath }/css/Style.css" type=text/css rel=stylesheet>
 <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css
 	rel=stylesheet>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.1.js"></script>
+	<script>
+		function loadSelect(typeCode,selectLocation,selectName,selectDictId){
+			var $select = $("<select name='"+selectName+"'>");
+			var option = '<option>---请选择---</option>';
+			$select.append(option);
+			$.ajax({
+				type:'get',
+				url:'${pageContext.request.contextPath }/dict/typecode/'+typeCode+".x",
+				success:function (data) {
+					$.each(data,function (i,dict) {
+						var $option = '';
+						if (selectDictId == dict.dictid){
+							$option = '<option value="'+dict.dictid+'" selected >'+dict.dictitemname+'</option>';
+						}else {
+							$option = '<option value="'+dict.dictid+'">'+dict.dictitemname+'</option>';
+						}
 
+						$select.append($option);
+					});
+				}
+			});
+			$select.append("</select>");
+			$("#"+selectLocation).html($select);
+		}
+		//页面加载完毕，从数据库异步获取下拉选择框的内容
+		$(function () {
+			loadSelect("006","levelSelectId","custLevel",${customer.custLevel});
+			loadSelect("002","sourceSelectId","custSource",${customer.custSource});
+			loadSelect("001","industrySelectId","custIndustry",${customer.custIndustry});
+		})
+	</script>
 
 <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
 </HEAD>
 <BODY>
 	<FORM id=form1 name=form1
-		action="${pageContext.request.contextPath }/customerServlet?method=editsubmit"
+		action="${pageContext.request.contextPath }/customer/editsubmit.x"
 		method=post>
 		<input type="hidden" name="custId" value="${customer.custId }"/>
 
@@ -53,17 +84,15 @@
 											style="WIDTH: 180px" maxLength=50 name="custName" value="${customer.custName }">
 								</td>
 								<td>客户级别 ：</td>
-								<td>
-								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custLevel" value="${customer.custLevel }">
+								<td id="levelSelectId">
+
 								</td>
 							</TR>
 							
 							<TR>
 								<td>信息来源：</td>
-								<td>
-								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custSource" value="${customer.custSource }">
+								<td id="sourceSelectId">
+
 								</td>
 								<td>联系人：</td>
 								<td>
@@ -92,24 +121,23 @@
 								<INPUT class=textbox id=sChannel2
 														style="WIDTH: 180px" maxLength=50 name="custAddress" value="${customerDetail.custAddress }">
 								</td>
-								<td>邮政编码 ：</td>
-								<td>
-								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custZip" value="${customerDetail.custZip }">
+								<td>所属行业 ：</td>
+								<td id="industrySelectId">
+
 								</td>
 							</TR>
-							<TR>
-								<td>客户传真 ：</td>
-								<td>
-								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custFax" value="${customerDetail.custFax }">
-								</td>
-								<td>客户网址 ：</td>
-								<td>
-								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custWebsite" value="${customerDetail.custWebsite }">
-								</td>
-							</TR>
+<%--							<TR>--%>
+<%--								<td>客户传真 ：</td>--%>
+<%--								<td>--%>
+<%--								<INPUT class=textbox id=sChannel2--%>
+<%--														style="WIDTH: 180px" maxLength=50 name="custFax" value="${customerDetail.custFax }">--%>
+<%--								</td>--%>
+<%--								<td>客户网址 ：</td>--%>
+<%--								<td>--%>
+<%--								<INPUT class=textbox id=sChannel2--%>
+<%--														style="WIDTH: 180px" maxLength=50 name="custWebsite" value="${customerDetail.custWebsite }">--%>
+<%--								</td>--%>
+<%--							</TR>--%>
 							<tr>
 								<td rowspan=2>
 								<INPUT class=button id=sButton2 type=submit

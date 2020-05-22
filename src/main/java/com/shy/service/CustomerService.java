@@ -12,4 +12,10 @@ public interface CustomerService {
     void insert(CstCustomer cstCustomer);
 
     PageBean getCustomerListByPage(Integer page, Integer pageSize, CstCustomer cstCustomer);
+
+    CstCustomer findCustomerById(Long custId);
+
+    void updateCustomerById(CstCustomer cstCustomer);
+
+    void deleteCustomerById(Long custId);
 }

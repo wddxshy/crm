@@ -106,9 +106,9 @@
                                         <TD>${CustomerCustom.custPhone }</TD>
                                         <TD>${CustomerCustom.custMobile }</TD>
                                         <TD>
-                                            <a href="${pageContext.request.contextPath }/customerServlet?method=edit&custId=${customer.custId}">修改</a>
+                                            <a href="${pageContext.request.contextPath }/customer/toEdit/${CustomerCustom.custId}.x">修改</a>
                                             &nbsp;&nbsp;
-                                            <a href="${pageContext.request.contextPath }/customerServlet?method=delete&custId=${customer.custId}">删除</a>
+                                            <a href="${pageContext.request.contextPath }/customer/delete.x?custId=${CustomerCustom.custId}">删除</a>
                                         </TD>
                                     </TR>
 
