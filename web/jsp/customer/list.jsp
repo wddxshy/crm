@@ -18,6 +18,14 @@
             document.customerForm.submit();
 
         }
+        function submitForm(flag) {
+            if (flag == 'query'){
+                $("#customerForm").attr("action","${pageContext.request.contextPath}/customer/list.x")
+            }else {
+                $("#customerForm").attr("action","${pageContext.request.contextPath}/customer/deleteBatch.x")
+            }
+            $("#customerForm").submit();
+        }
     </SCRIPT>
 
     <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
@@ -66,8 +74,10 @@
                                                style="WIDTH: 80px" maxLength=50 name="custName"
                                                 value="${cstCustomer.custName}"></TD>
 
-                                    <TD><INPUT class=button id=sButton2 type=submit
-                                               value=" 筛选 " name=sButton2></TD>
+                                    <TD>
+                                        <INPUT class=button id=sButton2 type=submit value=" 筛选 " onclick="submitForm('query')">
+                                        <INPUT class=button id=sButton2 type=submit value=" 批量删除 " onclick="submitForm('delete')">
+                                    </TD>
                                 </TR>
                                 </TBODY>
                             </TABLE>
@@ -82,6 +92,7 @@
                                 <TBODY>
                                 <TR
                                         style="FONT-WEIGHT: bold; FONT-STYLE: normal; BACKGROUND-COLOR: #eeeeee; TEXT-DECORATION: none">
+                                    <td>&nbsp;</td>
                                     <TD>客户名称</TD>
                                     <TD>客户级别</TD>
                                     <TD>客户来源</TD>
@@ -93,6 +104,7 @@
                                 <c:forEach items="${customerListByPage.data}" var="CustomerCustom">
                                     <TR
                                             style="FONT-WEIGHT: normal; FONT-STYLE: normal; BACKGROUND-COLOR: white; TEXT-DECORATION: none">
+                                        <td><input type="checkbox" name="ids" value="${CustomerCustom.custId}"></td>
                                         <TD>
                                                 ${CustomerCustom.custName }
                                         </TD>
@@ -106,6 +118,9 @@
                                         <TD>${CustomerCustom.custPhone }</TD>
                                         <TD>${CustomerCustom.custMobile }</TD>
                                         <TD>
+                                            <c:if test="${flag == 'select'}">
+                                                
+                                            </c:if>
                                             <a href="${pageContext.request.contextPath }/customer/toEdit/${CustomerCustom.custId}.x">修改</a>
                                             &nbsp;&nbsp;
                                             <a href="${pageContext.request.contextPath }/customer/delete.x?custId=${CustomerCustom.custId}">删除</a>

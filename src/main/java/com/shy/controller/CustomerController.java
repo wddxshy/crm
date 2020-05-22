@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @Author: WeiDongDong
@@ -32,10 +34,11 @@ public class CustomerController {
     }
 
     @RequestMapping("/customer/list")
-    public String getCustomerList(Model model,Integer page,Integer pageSize,CstCustomer cstCustomer){
+    public String getCustomerList(Model model,Integer page,Integer pageSize,CstCustomer cstCustomer,String flag){
         PageBean customerListByPage = customerService.getCustomerListByPage(page,pageSize,cstCustomer);
         System.out.println(customerListByPage);
         model.addAttribute("customerListByPage",customerListByPage);
+        model.addAttribute("flag",flag);
         return "customer/list";
     }
 
@@ -59,5 +62,13 @@ public class CustomerController {
         customerService.deleteCustomerById(custId);
         return "redirect:/customer/list.x";
     }
+
+    @RequestMapping("/customer/deleteBatch")
+    public String deleteBatch(Long[] ids){
+        List<Long> list = Arrays.asList(ids);
+        customerService.deleteBatch(list);
+        return "redirect:/customer/list.x";
+    }
+
 }
 

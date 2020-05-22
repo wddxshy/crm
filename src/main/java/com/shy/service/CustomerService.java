@@ -3,6 +3,8 @@ package com.shy.service;
 import com.shy.beans.CstCustomer;
 import com.shy.utils.PageBean;
 
+import java.util.List;
+
 /**
  * @Author: WeiDongDong
  * @Date 2020/5/17 18:45
@@ -18,4 +20,6 @@ public interface CustomerService {
     void updateCustomerById(CstCustomer cstCustomer);
 
     void deleteCustomerById(Long custId);
+
+    void deleteBatch(List<Long> ids);
 }

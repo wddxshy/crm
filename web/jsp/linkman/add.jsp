@@ -9,7 +9,16 @@
 <LINK href="${pageContext.request.contextPath }/css/Style.css" type=text/css rel=stylesheet>
 <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css
 	rel=stylesheet>
-
+	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-3.5.1.js"></script>
+<script type="text/javascript">
+	$(function () {
+		$("#industryCustId").click(function () {
+			window.open('${pageContext.request.contextPath}/customer/list.x?flag=select',
+					'客户列表',
+					'height=600,width=800,top=0,left=0,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no');
+		});
+	})
+</script>
 
 <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
 </HEAD>
@@ -48,7 +57,7 @@
 						<TABLE cellSpacing=0 cellPadding=5  border=0>
 							<tr>
 								<td>所属客户：</td>
-								<td colspan="3"><input type="text" name="custId" style="WIDTH: 180px"/></td>
+								<td colspan="3"><input type="text" name="custId" style="WIDTH: 180px" id="industryCustId"/></td>
 							</tr>
 							<TR>
 								<td>联系人名称：</td>

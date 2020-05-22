@@ -3,6 +3,7 @@ package com.shy.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.shy.beans.CstCustomer;
+import com.shy.beans.CstCustomerExample;
 import com.shy.beans.CustomerCustom;
 import com.shy.mapper.CstCustomerMapper;
 import com.shy.mapper.CustomerMapper;
@@ -69,5 +70,12 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void deleteCustomerById(Long custId) {
         cstCustomerMapper.deleteByPrimaryKey(custId);
+    }
+
+    @Override
+    public void deleteBatch(List<Long> ids) {
+        CstCustomerExample customerExample = new CstCustomerExample();
+        customerExample.createCriteria().andCustCreateIdIn(ids);
+        cstCustomerMapper.deleteByExample(customerExample);
     }
 }
