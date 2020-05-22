@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shy.mapper.BaseDictMapper">
+  <resultMap id="BaseResultMap" type="com.shy.beans.BaseDict">
+    <id column="dictId" jdbcType="VARCHAR" property="dictid" />
+    <result column="dictTypeCode" jdbcType="VARCHAR" property="dicttypecode" />
+    <result column="dictTypeName" jdbcType="VARCHAR" property="dicttypename" />
+    <result column="dictItemName" jdbcType="VARCHAR" property="dictitemname" />
+    <result column="dictItemCode" jdbcType="VARCHAR" property="dictitemcode" />
+    <result column="dictSort" jdbcType="INTEGER" property="dictsort" />
+    <result column="dictEnable" jdbcType="CHAR" property="dictenable" />
+    <result column="dictMemo" jdbcType="VARCHAR" property="dictmemo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    dictId, dictTypeCode, dictTypeName, dictItemName, dictItemCode, dictSort, dictEnable, 
+    dictMemo
+  </sql>
+  <select id="selectByExample" parameterType="com.shy.beans.BaseDictExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from base_dict
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_dict
+    where dictId = #{dictid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from base_dict
+    where dictId = #{dictid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shy.beans.BaseDictExample">
+    delete from base_dict
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shy.beans.BaseDict">
+    insert into base_dict (dictId, dictTypeCode, dictTypeName, 
+      dictItemName, dictItemCode, dictSort, 
+      dictEnable, dictMemo)
+    values (#{dictid,jdbcType=VARCHAR}, #{dicttypecode,jdbcType=VARCHAR}, #{dicttypename,jdbcType=VARCHAR}, 
+      #{dictitemname,jdbcType=VARCHAR}, #{dictitemcode,jdbcType=VARCHAR}, #{dictsort,jdbcType=INTEGER}, 
+      #{dictenable,jdbcType=CHAR}, #{dictmemo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shy.beans.BaseDict">
+    insert into base_dict
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dictid != null">
+        dictId,
+      </if>
+      <if test="dicttypecode != null">
+        dictTypeCode,
+      </if>
+      <if test="dicttypename != null">
+        dictTypeName,
+      </if>
+      <if test="dictitemname != null">
+        dictItemName,
+      </if>
+      <if test="dictitemcode != null">
+        dictItemCode,
+      </if>
+      <if test="dictsort != null">
+        dictSort,
+      </if>
+      <if test="dictenable != null">
+        dictEnable,
+      </if>
+      <if test="dictmemo != null">
+        dictMemo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dictid != null">
+        #{dictid,jdbcType=VARCHAR},
+      </if>
+      <if test="dicttypecode != null">
+        #{dicttypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="dicttypename != null">
+        #{dicttypename,jdbcType=VARCHAR},
+      </if>
+      <if test="dictitemname != null">
+        #{dictitemname,jdbcType=VARCHAR},
+      </if>
+      <if test="dictitemcode != null">
+        #{dictitemcode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictsort != null">
+        #{dictsort,jdbcType=INTEGER},
+      </if>
+      <if test="dictenable != null">
+        #{dictenable,jdbcType=CHAR},
+      </if>
+      <if test="dictmemo != null">
+        #{dictmemo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shy.beans.BaseDictExample" resultType="java.lang.Long">
+    select count(*) from base_dict
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update base_dict
+    <set>
+      <if test="record.dictid != null">
+        dictId = #{record.dictid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dicttypecode != null">
+        dictTypeCode = #{record.dicttypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dicttypename != null">
+        dictTypeName = #{record.dicttypename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dictitemname != null">
+        dictItemName = #{record.dictitemname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dictitemcode != null">
+        dictItemCode = #{record.dictitemcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dictsort != null">
+        dictSort = #{record.dictsort,jdbcType=INTEGER},
+      </if>
+      <if test="record.dictenable != null">
+        dictEnable = #{record.dictenable,jdbcType=CHAR},
+      </if>
+      <if test="record.dictmemo != null">
+        dictMemo = #{record.dictmemo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update base_dict
+    set dictId = #{record.dictid,jdbcType=VARCHAR},
+      dictTypeCode = #{record.dicttypecode,jdbcType=VARCHAR},
+      dictTypeName = #{record.dicttypename,jdbcType=VARCHAR},
+      dictItemName = #{record.dictitemname,jdbcType=VARCHAR},
+      dictItemCode = #{record.dictitemcode,jdbcType=VARCHAR},
+      dictSort = #{record.dictsort,jdbcType=INTEGER},
+      dictEnable = #{record.dictenable,jdbcType=CHAR},
+      dictMemo = #{record.dictmemo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shy.beans.BaseDict">
+    update base_dict
+    <set>
+      <if test="dicttypecode != null">
+        dictTypeCode = #{dicttypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="dicttypename != null">
+        dictTypeName = #{dicttypename,jdbcType=VARCHAR},
+      </if>
+      <if test="dictitemname != null">
+        dictItemName = #{dictitemname,jdbcType=VARCHAR},
+      </if>
+      <if test="dictitemcode != null">
+        dictItemCode = #{dictitemcode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictsort != null">
+        dictSort = #{dictsort,jdbcType=INTEGER},
+      </if>
+      <if test="dictenable != null">
+        dictEnable = #{dictenable,jdbcType=CHAR},
+      </if>
+      <if test="dictmemo != null">
+        dictMemo = #{dictmemo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dictId = #{dictid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shy.beans.BaseDict">
+    update base_dict
+    set dictTypeCode = #{dicttypecode,jdbcType=VARCHAR},
+      dictTypeName = #{dicttypename,jdbcType=VARCHAR},
+      dictItemName = #{dictitemname,jdbcType=VARCHAR},
+      dictItemCode = #{dictitemcode,jdbcType=VARCHAR},
+      dictSort = #{dictsort,jdbcType=INTEGER},
+      dictEnable = #{dictenable,jdbcType=CHAR},
+      dictMemo = #{dictmemo,jdbcType=VARCHAR}
+    where dictId = #{dictid,jdbcType=VARCHAR}
+  </update>
+</mapper>

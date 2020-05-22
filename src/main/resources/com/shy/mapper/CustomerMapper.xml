@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shy.mapper.CustomerMapper">
+    <resultMap id="CustomerMapperResultMap" type="com.shy.beans.CustomerCustom" autoMapping="true">
+        <collection property="dicts" ofType="com.shy.beans.BaseDict" autoMapping="true"/>
+
+    </resultMap>
+    <select id="findCustomerAndDict" resultMap="CustomerMapperResultMap">
+        select cust_id, cust_name, cl.dictItemName cust_level, cs.dictItemName cust_source, cust_linkman, cust_phone, cust_mobile
+        from cst_customer
+                 inner join base_dict cl on cust_level = cl.dictId
+                 inner join base_dict cs on cust_source = cs.dictId
+    </select>
+</mapper>

@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shy.mapper.CstCustomerDetailMapper">
+  <resultMap id="BaseResultMap" type="com.shy.beans.CstCustomerDetail">
+    <id column="cust_id" jdbcType="BIGINT" property="custId" />
+    <result column="cust_region" jdbcType="VARCHAR" property="custRegion" />
+    <result column="cust_zip" jdbcType="VARCHAR" property="custZip" />
+    <result column="cust_address" jdbcType="VARCHAR" property="custAddress" />
+    <result column="cust_fax" jdbcType="VARCHAR" property="custFax" />
+    <result column="cust_website" jdbcType="VARCHAR" property="custWebsite" />
+    <result column="cust_licence" jdbcType="VARCHAR" property="custLicence" />
+    <result column="cust_corporation" jdbcType="VARCHAR" property="custCorporation" />
+    <result column="cust_capital" jdbcType="BIGINT" property="custCapital" />
+    <result column="cust_bank" jdbcType="VARCHAR" property="custBank" />
+    <result column="cust_pic" jdbcType="VARCHAR" property="custPic" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.shy.beans.CstCustomerDetail">
+    <result column="cust_memo" jdbcType="LONGVARCHAR" property="custMemo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cust_id, cust_region, cust_zip, cust_address, cust_fax, cust_website, cust_licence, 
+    cust_corporation, cust_capital, cust_bank, cust_pic
+  </sql>
+  <sql id="Blob_Column_List">
+    cust_memo
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.shy.beans.CstCustomerDetailExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from cst_customer_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.shy.beans.CstCustomerDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cst_customer_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from cst_customer_detail
+    where cust_id = #{custId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from cst_customer_detail
+    where cust_id = #{custId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shy.beans.CstCustomerDetailExample">
+    delete from cst_customer_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shy.beans.CstCustomerDetail">
+    insert into cst_customer_detail (cust_id, cust_region, cust_zip, 
+      cust_address, cust_fax, cust_website, 
+      cust_licence, cust_corporation, cust_capital, 
+      cust_bank, cust_pic, cust_memo
+      )
+    values (#{custId,jdbcType=BIGINT}, #{custRegion,jdbcType=VARCHAR}, #{custZip,jdbcType=VARCHAR}, 
+      #{custAddress,jdbcType=VARCHAR}, #{custFax,jdbcType=VARCHAR}, #{custWebsite,jdbcType=VARCHAR}, 
+      #{custLicence,jdbcType=VARCHAR}, #{custCorporation,jdbcType=VARCHAR}, #{custCapital,jdbcType=BIGINT}, 
+      #{custBank,jdbcType=VARCHAR}, #{custPic,jdbcType=VARCHAR}, #{custMemo,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shy.beans.CstCustomerDetail">
+    insert into cst_customer_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="custId != null">
+        cust_id,
+      </if>
+      <if test="custRegion != null">
+        cust_region,
+      </if>
+      <if test="custZip != null">
+        cust_zip,
+      </if>
+      <if test="custAddress != null">
+        cust_address,
+      </if>
+      <if test="custFax != null">
+        cust_fax,
+      </if>
+      <if test="custWebsite != null">
+        cust_website,
+      </if>
+      <if test="custLicence != null">
+        cust_licence,
+      </if>
+      <if test="custCorporation != null">
+        cust_corporation,
+      </if>
+      <if test="custCapital != null">
+        cust_capital,
+      </if>
+      <if test="custBank != null">
+        cust_bank,
+      </if>
+      <if test="custPic != null">
+        cust_pic,
+      </if>
+      <if test="custMemo != null">
+        cust_memo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="custId != null">
+        #{custId,jdbcType=BIGINT},
+      </if>
+      <if test="custRegion != null">
+        #{custRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="custZip != null">
+        #{custZip,jdbcType=VARCHAR},
+      </if>
+      <if test="custAddress != null">
+        #{custAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="custFax != null">
+        #{custFax,jdbcType=VARCHAR},
+      </if>
+      <if test="custWebsite != null">
+        #{custWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="custLicence != null">
+        #{custLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="custCorporation != null">
+        #{custCorporation,jdbcType=VARCHAR},
+      </if>
+      <if test="custCapital != null">
+        #{custCapital,jdbcType=BIGINT},
+      </if>
+      <if test="custBank != null">
+        #{custBank,jdbcType=VARCHAR},
+      </if>
+      <if test="custPic != null">
+        #{custPic,jdbcType=VARCHAR},
+      </if>
+      <if test="custMemo != null">
+        #{custMemo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shy.beans.CstCustomerDetailExample" resultType="java.lang.Long">
+    select count(*) from cst_customer_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update cst_customer_detail
+    <set>
+      <if test="record.custId != null">
+        cust_id = #{record.custId,jdbcType=BIGINT},
+      </if>
+      <if test="record.custRegion != null">
+        cust_region = #{record.custRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custZip != null">
+        cust_zip = #{record.custZip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custAddress != null">
+        cust_address = #{record.custAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custFax != null">
+        cust_fax = #{record.custFax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custWebsite != null">
+        cust_website = #{record.custWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custLicence != null">
+        cust_licence = #{record.custLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custCorporation != null">
+        cust_corporation = #{record.custCorporation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custCapital != null">
+        cust_capital = #{record.custCapital,jdbcType=BIGINT},
+      </if>
+      <if test="record.custBank != null">
+        cust_bank = #{record.custBank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custPic != null">
+        cust_pic = #{record.custPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custMemo != null">
+        cust_memo = #{record.custMemo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update cst_customer_detail
+    set cust_id = #{record.custId,jdbcType=BIGINT},
+      cust_region = #{record.custRegion,jdbcType=VARCHAR},
+      cust_zip = #{record.custZip,jdbcType=VARCHAR},
+      cust_address = #{record.custAddress,jdbcType=VARCHAR},
+      cust_fax = #{record.custFax,jdbcType=VARCHAR},
+      cust_website = #{record.custWebsite,jdbcType=VARCHAR},
+      cust_licence = #{record.custLicence,jdbcType=VARCHAR},
+      cust_corporation = #{record.custCorporation,jdbcType=VARCHAR},
+      cust_capital = #{record.custCapital,jdbcType=BIGINT},
+      cust_bank = #{record.custBank,jdbcType=VARCHAR},
+      cust_pic = #{record.custPic,jdbcType=VARCHAR},
+      cust_memo = #{record.custMemo,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update cst_customer_detail
+    set cust_id = #{record.custId,jdbcType=BIGINT},
+      cust_region = #{record.custRegion,jdbcType=VARCHAR},
+      cust_zip = #{record.custZip,jdbcType=VARCHAR},
+      cust_address = #{record.custAddress,jdbcType=VARCHAR},
+      cust_fax = #{record.custFax,jdbcType=VARCHAR},
+      cust_website = #{record.custWebsite,jdbcType=VARCHAR},
+      cust_licence = #{record.custLicence,jdbcType=VARCHAR},
+      cust_corporation = #{record.custCorporation,jdbcType=VARCHAR},
+      cust_capital = #{record.custCapital,jdbcType=BIGINT},
+      cust_bank = #{record.custBank,jdbcType=VARCHAR},
+      cust_pic = #{record.custPic,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shy.beans.CstCustomerDetail">
+    update cst_customer_detail
+    <set>
+      <if test="custRegion != null">
+        cust_region = #{custRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="custZip != null">
+        cust_zip = #{custZip,jdbcType=VARCHAR},
+      </if>
+      <if test="custAddress != null">
+        cust_address = #{custAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="custFax != null">
+        cust_fax = #{custFax,jdbcType=VARCHAR},
+      </if>
+      <if test="custWebsite != null">
+        cust_website = #{custWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="custLicence != null">
+        cust_licence = #{custLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="custCorporation != null">
+        cust_corporation = #{custCorporation,jdbcType=VARCHAR},
+      </if>
+      <if test="custCapital != null">
+        cust_capital = #{custCapital,jdbcType=BIGINT},
+      </if>
+      <if test="custBank != null">
+        cust_bank = #{custBank,jdbcType=VARCHAR},
+      </if>
+      <if test="custPic != null">
+        cust_pic = #{custPic,jdbcType=VARCHAR},
+      </if>
+      <if test="custMemo != null">
+        cust_memo = #{custMemo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where cust_id = #{custId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.shy.beans.CstCustomerDetail">
+    update cst_customer_detail
+    set cust_region = #{custRegion,jdbcType=VARCHAR},
+      cust_zip = #{custZip,jdbcType=VARCHAR},
+      cust_address = #{custAddress,jdbcType=VARCHAR},
+      cust_fax = #{custFax,jdbcType=VARCHAR},
+      cust_website = #{custWebsite,jdbcType=VARCHAR},
+      cust_licence = #{custLicence,jdbcType=VARCHAR},
+      cust_corporation = #{custCorporation,jdbcType=VARCHAR},
+      cust_capital = #{custCapital,jdbcType=BIGINT},
+      cust_bank = #{custBank,jdbcType=VARCHAR},
+      cust_pic = #{custPic,jdbcType=VARCHAR},
+      cust_memo = #{custMemo,jdbcType=LONGVARCHAR}
+    where cust_id = #{custId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shy.beans.CstCustomerDetail">
+    update cst_customer_detail
+    set cust_region = #{custRegion,jdbcType=VARCHAR},
+      cust_zip = #{custZip,jdbcType=VARCHAR},
+      cust_address = #{custAddress,jdbcType=VARCHAR},
+      cust_fax = #{custFax,jdbcType=VARCHAR},
+      cust_website = #{custWebsite,jdbcType=VARCHAR},
+      cust_licence = #{custLicence,jdbcType=VARCHAR},
+      cust_corporation = #{custCorporation,jdbcType=VARCHAR},
+      cust_capital = #{custCapital,jdbcType=BIGINT},
+      cust_bank = #{custBank,jdbcType=VARCHAR},
+      cust_pic = #{custPic,jdbcType=VARCHAR}
+    where cust_id = #{custId,jdbcType=BIGINT}
+  </update>
+</mapper>
