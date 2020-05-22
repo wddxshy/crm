@@ -37,7 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public PageBean getCustomerListByPage(Integer page, Integer pageSize) {
+    public PageBean getCustomerListByPage(Integer page, Integer pageSize, CstCustomer cstCustomer) {
         PageBean<List> customPageBean = new PageBean<>();
         customPageBean.setPage(page);
         customPageBean.setPageSize(pageSize);
@@ -45,7 +45,7 @@ public class CustomerServiceImpl implements CustomerService {
         PageHelper.startPage(customPageBean.getPage(), customPageBean.getPageSize());
 
         //执行分页查询
-        List<CustomerCustom> list = customerMapper.findCustomerAndDict();
+        List<CustomerCustom> list = customerMapper.findCustomerAndDict(cstCustomer);
 
         PageInfo<CustomerCustom> pageInfo = new PageInfo<>(list);
         customPageBean.setTotal(Math.toIntExact(pageInfo.getTotal()));

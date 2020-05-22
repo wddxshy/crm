@@ -11,5 +11,5 @@ import com.shy.utils.PageBean;
 public interface CustomerService {
     void insert(CstCustomer cstCustomer);
 
-    PageBean getCustomerListByPage(Integer page,Integer pageSize);
+    PageBean getCustomerListByPage(Integer page, Integer pageSize, CstCustomer cstCustomer);
 }

@@ -1,5 +1,6 @@
 package com.shy.mapper;
 
+import com.shy.beans.CstCustomer;
 import com.shy.beans.CustomerCustom;
 
 import java.util.List;
@@ -10,5 +11,5 @@ import java.util.List;
  * @Description
  */
 public interface CustomerMapper {
-    List<CustomerCustom> findCustomerAndDict();
+    List<CustomerCustom> findCustomerAndDict(CstCustomer cstCustomer);
 }

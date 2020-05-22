@@ -28,8 +28,8 @@ public class CustomerController {
     }
 
     @RequestMapping("/customer/list")
-    public String getCustomerList(Model model,Integer page,Integer pageSize){
-        PageBean customerListByPage = customerService.getCustomerListByPage(page,pageSize);
+    public String getCustomerList(Model model,Integer page,Integer pageSize,CstCustomer cstCustomer){
+        PageBean customerListByPage = customerService.getCustomerListByPage(page,pageSize,cstCustomer);
         System.out.println(customerListByPage);
         model.addAttribute("customerListByPage",customerListByPage);
         return "customer/list";
